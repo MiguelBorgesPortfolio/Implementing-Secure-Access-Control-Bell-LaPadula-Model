@@ -1,0 +1,269 @@
+# CRIAÇÃO DE DIRETÓRIOS E ARQUIVOS
+
+# Cria o diretório base /dados
+sudo mkdir /dados
+
+# Cria o diretório para o grupo "alto" dentro de /dados
+sudo mkdir /dados/alto_grupo_04_65_52
+
+# Cria o diretório para o grupo "médio" dentro de /dados
+sudo mkdir /dados/medio_grupo_04_65_52
+
+# Cria o diretório para o grupo "baixo" dentro de /dados
+sudo mkdir /dados/baixo_grupo_04_65_52
+
+# Cria o arquivo de dados "confidencial_04_65_52.txt" dentro do diretório "alto"
+sudo touch /dados/alto_grupo_04_65_52/confidencial_04_65_52.txt
+
+# Cria o arquivo de dados "intermediario_04_65_52.txt" dentro do diretório "médio"
+sudo touch /dados/medio_grupo_04_65_52/intermediario_04_65_52.txt
+
+# Cria o arquivo de dados "publico_04_65_52.txt" dentro do diretório "baixo"
+sudo touch /dados/baixo_grupo_04_65_52/publico_04_65_52.txt
+
+# Abre o arquivo "confidencial_04_65_52.txt" no diretório "alto" para edição com nano
+sudo nano /dados/alto_grupo_04_65_52/confidencial_04_65_52.txt
+
+# Abre o arquivo "intermediario_04_65_52.txt" no diretório "médio" para edição com nano
+sudo nano /dados/medio_grupo_04_65_52/intermediario_04_65_52.txt
+
+# Abre o arquivo "publico_04_65_52.txt" no diretório "baixo" para edição com nano
+sudo nano /dados/baixo_grupo_04_65_52/publico_04_65_52.txt
+
+# CRIAÇÃO E MODIFICAÇÃO DE GRUPOS E USUÁRIOS
+
+# Cria um grupo para o nível de acesso "alto"
+sudo groupadd grupo_04_65_52_alto
+
+# Cria um grupo para o nível de acesso "médio"
+sudo groupadd grupo_04_65_52_medio
+
+# Cria um grupo para o nível de acesso "baixo"
+sudo groupadd grupo_04_65_52_baixo
+
+# Cria o usuário para o grupo "alto"
+sudo useradd -m user_grupo_04_65_52_alto
+
+# Cria o usuário para o grupo "médio"
+sudo useradd -m user_grupo_04_65_52_medio
+
+# Cria o usuário para o grupo "baixo"
+sudo useradd -m user_grupo_04_65_52_baixo
+
+# Adiciona o usuário "user_grupo_04_65_52_alto" ao grupo "grupo_04_65_52_alto"
+sudo usermod -aG grupo_04_65_52_alto user_grupo_04_65_52_alto
+
+# Adiciona o usuário "user_grupo_04_65_52_medio" ao grupo "grupo_04_65_52_medio"
+sudo usermod -aG grupo_04_65_52_medio user_grupo_04_65_52_medio
+
+# Adiciona o usuário "user_grupo_04_65_52_alto" também ao grupo "grupo_04_65_52_medio"
+sudo usermod -aG grupo_04_65_52_medio user_grupo_04_65_52_alto
+
+# Adiciona o usuário "user_grupo_04_65_52_baixo" ao grupo "grupo_04_65_52_baixo"
+sudo usermod -aG grupo_04_65_52_baixo user_grupo_04_65_52_baixo
+
+# Adiciona o usuário "user_grupo_04_65_52_medio" também ao grupo "grupo_04_65_52_baixo"
+sudo usermod -aG grupo_04_65_52_baixo user_grupo_04_65_52_medio
+
+# Adiciona o usuário "user_grupo_04_65_52_alto" também ao grupo "grupo_04_65_52_baixo"
+sudo usermod -aG grupo_04_65_52_baixo user_grupo_04_65_52_alto
+
+# Define a senha para o usuário "user_grupo_04_65_52_alto"
+sudo passwd user_grupo_04_65_52_alto
+
+# Define a senha para o usuário "user_grupo_04_65_52_medio"
+sudo passwd user_grupo_04_65_52_medio
+
+# Define a senha para o usuário "user_grupo_04_65_52_baixo"
+sudo passwd user_grupo_04_65_52_baixo
+
+# ALTERAÇÃO DE PROPRIEDADE E PERMISSÕES DOS DIRETÓRIOS
+
+# Altera a propriedade do diretório "/dados/alto_grupo_04_65_52" para o usuário "user_grupo_04_65_52_alto" e grupo "grupo_04_65_52_alto"
+sudo chown user_grupo_04_65_52_alto:grupo_04_65_52_alto /dados/alto_grupo_04_65_52
+
+# Altera a propriedade do diretório "/dados/medio_grupo_04_65_52" para o usuário "user_grupo_04_65_52_medio" e grupo "grupo_04_65_52_medio"
+sudo chown user_grupo_04_65_52_medio:grupo_04_65_52_medio /dados/medio_grupo_04_65_52
+
+# Altera a propriedade do diretório "/dados/baixo_grupo_04_65_52" para o usuário "user_grupo_04_65_52_baixo" e grupo "grupo_04_65_52_baixo"
+sudo chown user_grupo_04_65_52_baixo:grupo_04_65_52_baixo /dados/baixo_grupo_04_65_52
+
+# Define permissões do diretório "/dados/alto_grupo_04_65_52" para permitir leitura, escrita e execução apenas para o proprietário
+sudo chmod 702 /dados/alto_grupo_04_65_52
+
+# Define permissões do diretório "/dados/medio_grupo_04_65_52" para permitir leitura, escrita e execução para o proprietário, leitura e execução para o grupo
+sudo chmod 742 /dados/medio_grupo_04_65_52
+
+# Define permissões do diretório "/dados/baixo_grupo_04_65_52" para permitir leitura, escrita e execução para o proprietário, leitura para o grupo
+sudo chmod 740 /dados/baixo_grupo_04_65_52
+
+# GERAÇÃO E GESTÃO DE CHAVES RSA
+
+# Gera a chave privada para o grupo "alto" com criptografia AES-256
+su - user_grupo_04_65_52_alto
+openssl genpkey -algorithm RSA -out chave_privada_alto.pem -aes256
+
+# Gera a chave pública correspondente para o grupo "alto"
+openssl rsa -pubout -in chave_privada_alto.pem -out chave_publica_alto.pem
+
+# Gera a chave privada para o grupo "médio" com criptografia AES-256
+su - user_grupo_04_65_52_medio
+openssl genpkey -algorithm RSA -out chave_privada_medio.pem -aes256
+
+# Gera a chave pública correspondente para o grupo "médio"
+openssl rsa -pubout -in chave_privada_medio.pem -out chave_publica_medio.pem
+
+# Gera a chave privada para o grupo "baixo" com criptografia AES-256
+su - user_grupo_04_65_52_baixo
+openssl genpkey -algorithm RSA -out chave_privada_baixo.pem -aes256
+
+# Gera a chave pública correspondente para o grupo "baixo"
+openssl rsa -pubout -in chave_privada_baixo.pem -out chave_publica_baixo.pem
+
+# CRIAÇÃO DE DIRETÓRIOS DE CHAVES E CÓPIA DE CHAVES PÚBLICAS
+
+# Cria o diretório "chaves" para armazenar as chaves públicas
+sudo mkdir chaves
+
+# Copia a chave pública do grupo "alto" para o diretório "chaves"
+sudo cp /home/user_grupo_04_65_52_alto/chave_publica_alto.pem chaves
+
+# Copia a chave pública do grupo "médio" para o diretório "chaves"
+sudo cp /home/user_grupo_04_65_52_medio/chave_publica_medio.pem chaves
+
+# Copia novamente a chave pública do grupo "médio" para o diretório "chaves"
+sudo cp /home/user_grupo_04_65_52_medio/chave_publica_medio.pem chaves
+
+# CRIPTOGRAFIA DE ARQUIVOS
+
+# Encripta o arquivo "intermediario_04_65_52.txt" com a chave pública do grupo "médio"
+sudo openssl rsautl -encrypt -inkey chaves/chave_publica_medio.pem -pubin -in /dados/medio_grupo_04_65_52/intermediario_04_65_52.txt -out /dados/medio_grupo_04_65_52/intermedio_encriptado.bin
+
+# Encripta o arquivo "confidencial_04_65_52.txt" com a chave pública do grupo "alto"
+sudo openssl rsautl -encrypt -inkey chaves/chave_publica_alto.pem -pubin -in /dados/alto_grupo_04_65_52/confidencial_04_65_52.txt -out /dados/alto_grupo_04_65_52/confidencial_encriptado.bin
+
+# PARTILHA DE FICHEIROS
+
+# Mudando para o usuário do grupo médio
+su - user_grupo_04_65_52_medio
+
+# Cria um arquivo de texto com um conteúdo simples para teste
+echo "medio para alto teste" > medio_para_alto.txt
+
+# Encripta o arquivo com a chave pública do grupo "alto" usando OpenSSL
+openssl rsautl -encrypt -inkey /home/seed/chaves/chave_publica_alto.pem -pubin -in medio_para_alto.txt -out medio_para_alto_encrypt.txt
+
+# PASSAR O FICHEIRO DO MEDIO PARA O ALTO
+
+# Sai do usuário "medio" e volta para o usuário root
+exit
+
+# Move o arquivo encriptado do diretório do grupo médio para o diretório do grupo alto
+sudo mv /home/user_grupo_04_65_52_medio/medio_para_alto_encrypt.txt /home/user_grupo_04_65_52_alto/
+
+# Agora, o usuário do grupo "alto" acessa o arquivo criptografado
+su - user_grupo_04_65_52_alto
+
+# Exibe o conteúdo do arquivo, que estará encriptado
+cat medio_para_alto_encrypt.txt 
+
+# Desencripta o arquivo com a chave privada do grupo "alto"
+openssl rsautl -decrypt -inkey chave_privada_alto.pem -in medio_para_alto_encrypt.txt -out medio_para_alto_decrypt.txt
+
+# Exibe o conteúdo do arquivo já desencriptado
+cat medio_para_alto_decrypt.txt
+
+
+# PROGRAMA DE CONSULTA RESTRITA
+
+# Criação do programa de consulta restrita que só permite acesso aos arquivos específicos na whitelist
+sudo nano /usr/local/bin/consulta_restrita.c 
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
+#define ALLOWED_DIR "/dados/medio_grupo_04_65_52"
+
+# Lista de arquivos permitidos na whitelist
+const char *whitelist[] = {
+    "intermediario_04_65_52.txt"
+};
+const int whitelist_size = sizeof(whitelist) / sizeof(whitelist[0]);
+
+# Função para verificar se o arquivo está na whitelist
+int is_in_whitelist(const char *filename) {
+    for (int i = 0; i < whitelist_size; i++) {
+        if (strcmp(filename, whitelist[i]) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int main(int argc, char *argv[]) {
+    char filepath[512];
+    struct stat file_stat;
+
+    # Extrai apenas o nome do arquivo para evitar path traversal
+    char *filename = strrchr(argv[1], '/');
+    filename = filename ? filename + 1 : argv[1];
+
+    # Verifica se o arquivo está na whitelist
+    if (!is_in_whitelist(filename)) {
+        fprintf(stderr, "Acesso negado: Arquivo não autorizado.\n");
+        return 1;
+    }
+
+    # Constrói o caminho completo do arquivo
+    snprintf(filepath, sizeof(filepath), "%s/%s", ALLOWED_DIR, filename);
+
+    # Verifica se o arquivo existe e se é um arquivo regular
+    if (stat(filepath, &file_stat) != 0 || !S_ISREG(file_stat.st_mode)) {
+        fprintf(stderr, "Erro: Arquivo não encontrado ou inválido.\n");
+        return 1;
+    }
+
+    # Abre e exibe o conteúdo do arquivo
+    FILE *file = fopen(filepath, "r");
+    if (!file) {
+        perror("Erro ao abrir o arquivo");
+        return 1;
+    }
+
+    char line[256];
+    while (fgets(line, sizeof(line), file)) {
+        printf("%s", line);
+    }
+
+    fclose(file);
+    return 0;
+}
+
+# Compila o programa em C
+sudo gcc -o /usr/local/bin/consulta_restrita /usr/local/bin/consulta_restrita.c 
+
+# Altera a propriedade do programa para o usuário e grupo corretos
+sudo chown seed:seed /usr/local/bin/consulta_restrita
+
+# Concede permissões especiais (setuid) ao programa para garantir que ele seja executado com privilégios do usuário correto
+sudo chmod u+s /usr/local/bin/consulta_restrita
+
+# Configura as permissões para que apenas o proprietário e o grupo possam executar
+sudo chmod 750 /usr/local/bin/consulta_restrita
+
+# Altera a propriedade para o grupo correto (grupo de médio)
+sudo chown seed:grupo_04_65_52_medio /usr/local/bin/consulta_restrita
+
+
+# TESTES
+
+# Testa o acesso a um arquivo que está na whitelist
+sudo -u user_grupo_04_65_52_medio /usr/local/bin/consulta_restrita intermediario_04_65_52.txt
+
+# Testa a prevenção de path traversal (acesso a arquivos fora do diretório permitido)
+# Isso deve falhar
+/usr/local/bin/consulta_restrita /dados/medio_grupo_04_65_52/../../outro_arquivo.txt
